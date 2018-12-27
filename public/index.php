@@ -7,13 +7,13 @@ require '../vendor/autoload.php';
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
   $r->addRoute('GET', '/', ['App\Controllers\HomeController', 'base']);
-  $r->addRoute('GET', '/index.php', 'get_all_users_handler');
-  $r->addRoute('GET', '/create', 'get_all_users_handler');
-  $r->addRoute('GET', '/users', 'get_all_users_handler');
-  // {id} must be a number (\d+)
-  $r->addRoute('GET', '/user/{id:\d+}', 'get_user_handler');
-  // The /{title} suffix is optional
-  $r->addRoute('GET', '/articles/{id:\d+}[/{title}]', 'get_article_handler');
+  $r->addRoute('GET', '/about', ['App\Controllers\HomeController', 'aboutPage']);
+//  $r->addRoute('GET', '/create', 'get_all_users_handler');
+//  $r->addRoute('GET', '/users', 'get_all_users_handler');
+//  // {id} must be a number (\d+)
+//  $r->addRoute('GET', '/user/{id:\d+}', 'get_user_handler');
+//  // The /{title} suffix is optional
+//  $r->addRoute('GET', '/articles/{id:\d+}[/{title}]', 'get_article_handler');
 });
 
 //d($dispatcher);
@@ -45,8 +45,7 @@ switch ($routeInfo[0]) {
 
    $controller = new $handler[0];
    $action = $handler[1];
-
-   call_user_func([$controller, $action]);
+   call_user_func([$controller, $action], $vars);
     break;
 }
 
