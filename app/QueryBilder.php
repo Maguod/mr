@@ -11,8 +11,8 @@ class QueryBilder {
   
   public function __construct()
   {
-    $pdo = new Database\Connection();
-    $this->pdo=$pdo;
+    $pdo = new Database\Connection;
+    $this->pdo=$pdo->make();
     $this->queryFactory = new QueryFactory('mysql');
   }
   

@@ -15,9 +15,7 @@ class HomeController
    */
   public function __construct()
   {
-    $info = include '../Database/InfoDatabase.php';
-    $connectDb = new \Database\Connection();
-    $this->qb = new QueryBilder($connectDb->make($info['Database']));
+    $this->qb = new QueryBilder();
   }
 
   public function base()
