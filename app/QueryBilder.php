@@ -2,14 +2,16 @@
 
 namespace App;
 use Aura\SqlQuery\QueryFactory;
+use Database;
 use PDO;
 
 class QueryBilder {
   protected $pdo;
   protected $queryFactory;
   
-  public function __construct(PDO $pdo)
+  public function __construct()
   {
+    $pdo = new Database\Connection();
     $this->pdo=$pdo;
     $this->queryFactory = new QueryFactory('mysql');
   }
