@@ -30,4 +30,9 @@ class HomeController
 //    $posts = $this->qb->getAll('posts');
     echo $this->tmp->render('about', ['name' => 'Name']);
   }
+  public function createPage()
+  {
+
+    echo $this->tmp->render('create.view', ['name' => 'Name']);
+  }
 }
