@@ -2,39 +2,36 @@
 
 namespace App;
 use Aura\SqlQuery\QueryFactory;
-use Database;
 use PDO;
 
 class QueryBilder {
   protected $pdo;
   protected $queryFactory;
   
-  public function __construct()
+  public function __construct(PDO $pdo, QueryFactory $qf)
   {
-    $pdo = new Database\Connection;
-    $this->pdo=$pdo->make();
-    $this->queryFactory = new QueryFactory('mysql');
+    
+    $this->pdo=$pdo;
+    $this->queryFactory = $qf;
   }
   
   public function getAll($table)
   {
-  
-  
     $select = $this->queryFactory->newSelect();
     $select->cols(['*'])
       ->from($table);
 
     $sth = $this->pdo->prepare($select->getStatement());
-
-
     $sth->execute($select->getBindValues());
-
-
     $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+    
       return $result;
     }
-
-  //функция заносим данные в базу
+  
+  /**
+   * create new row in table
+   * use table and massive {$data}
+   */
   public function createInsert($table, $data)
   {
     $insert = $this->queryFactory->newInsert();
@@ -88,7 +85,11 @@ class QueryBilder {
     return $result;
     
   }
-
+  
+  /**
+   * delete from DB
+   * use "table and id"
+   */
   public function delete( $table,  $id)
   {
     $delete = $this->queryFactory->newDelete();
