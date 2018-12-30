@@ -1,12 +1,15 @@
-<?php $this->layout('template'); ?>
+<?php $this->layout('template');
+$auth = $user;
+
+?>
 
 <h1>
   <?php
-  if(!empty($auth)) {
-    echo 'Здравствуйте  ' . '<b> ' .$auth . '</b>';
+  if($auth) {
+    echo 'Здравствуйте  ' . '<b> ' .$this->e($name); '</b>';
   }
   else {
-    echo 'Здравствуйте ' .  $this->e($name);
+    echo 'Здравствуйте гость';
   }
   ?>
 
@@ -14,32 +17,32 @@
 
 <div class="wrapper">
   <?php
-  if(!$auth) {
+  if (!$auth) {
     ?>
-    <form action="/reg.php" method="post">
+    <form action="/reg" method="post">
       <h3>Зарегистрироваться</h3>
-      <label for="name">Ваш логин</label>
-      <input type="text" name="name" id="name">
-      <label for="pass">Ваш пароль</label>
-      <input type="text" name="pass" id="pass">
+      <label for="username">Ваш логин</label>
+      <input type="text" name="username" id="username">
+      <label for="password">Ваш пароль</label>
+      <input type="text" name="password" id="password">
       <label for="email">Ваша почта</label>
       <input type="text" name="email" id="email">
       <button type="sumbmit">Зарегистрироваться</button>
     </form>
   <?php } ?>
   <?php if(!$auth) { ?>
-    <form action="/auth.php" method="post">
+    <form action="/auth" method="post">
       <h3>Войти в акк</h3>
-      <label for="name">Ваш логин</label>
-      <input type="text" name="name" id="name">
-      <label for="pass">Ваш пароль</label>
-      <input type="text" name="pass" id="pass">
+      <label for="email">Ваш email</label>
+      <input type="text" name="email" id="email">
+      <label for="password">Ваш пароль</label>
+      <input type="text" name="password" id="password">
       <button type="sumbmit">Войти</button>
     </form>
   <?php } ?>
   <?php if($auth) {
     echo '<a href="/view.php" class="btn btn-info"> Добавить посты</a>';
-    echo '<a href="/quit.php" class="btn btn-outline-danger"> Выйти</a>';
+    echo '<a href="/logout" class="btn btn-outline-danger"> Выйти</a>';
     
   } ?>
 

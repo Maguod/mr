@@ -2,7 +2,9 @@
 if( !session_id() ) @session_start();
 require '../vendor/autoload.php';
 use DI\ContainerBuilder;
+use Tamtamchik\SimpleFlash\Flash;
 
+$output = flash()->display();
 $containerBuilder = new ContainerBuilder;
 $containerBuilder->addDefinitions([
  
@@ -24,13 +26,12 @@ $containerBuilder->addDefinitions([
   },
   \Delight\Auth\Auth::class => function($containerBuilder) {
     return new Delight\Auth\Auth($containerBuilder->get('PDO'));
-  }
+  },
+  \Tamtamchik\SimpleFlash\Flash::class => function() {
+  return new \Tamtamchik\SimpleFlash\Flash();
+  },
 ]);
 $cB = $containerBuilder->build();
-//d($cB); die;
-
-
-//$tmp = new League\Plates\Engine('../app/view/');
 
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
@@ -38,6 +39,9 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
   $r->addRoute('GET', '/home', ['App\Controllers\HomeController', 'base']);
   $r->addRoute('GET', '/about', ['App\Controllers\HomeController', 'aboutPage']);
   $r->addRoute('GET', '/create', ['App\Controllers\HomeController', 'createPage']);
+  $r->addRoute('POST', '/reg', ['App\Controllers\HomeController', 'regUser']);
+  $r->addRoute('POST', '/auth', ['App\Controllers\HomeController', 'loginUser']);
+  $r->addRoute('GET', '/logout', ['App\Controllers\HomeController', 'Logout']);
   
 
 //  $r->addRoute('GET', '/create', 'get_all_users_handler');
@@ -47,8 +51,6 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
 //  // The /{title} suffix is optional
 //  $r->addRoute('GET', '/articles/{id:\d+}[/{title}]', 'get_article_handler');
 });
-
-//d($dispatcher);
 
 // Fetch method and URI from somewhere
 $httpMethod = $_SERVER['REQUEST_METHOD'];
@@ -80,4 +82,5 @@ switch ($routeInfo[0]) {
 
     break;
 }
+//d($auth);
 
