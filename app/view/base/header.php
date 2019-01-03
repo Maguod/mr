@@ -8,7 +8,13 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>View auth</title>
   <!--  <link rel="stylesheet" href="../view/css/styles.css">-->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design Bootstrap -->
+  <link href="css/mdb.min.css" rel="stylesheet">
+  <!-- Your custom styles (optional) -->
+<!--  <link href="css/style.css" rel="stylesheet">-->
   <link rel="stylesheet" href="css/main.css">
 </head>
 <style>
